@@ -1,0 +1,1 @@
+# gayatama-waste-clasification
