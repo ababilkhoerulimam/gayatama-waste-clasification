@@ -211,6 +211,7 @@ The cross-family ensemble maintained robust performance across all degradation r
 ```text
 gayatama-waste-clasification/
 ├── .gitignore
+├── DATASET.md
 ├── LICENSE
 ├── logo.png
 ├── README.md
@@ -224,6 +225,7 @@ gayatama-waste-clasification/
 
 - `notebooks/gayatama_waste_classification_pipeline.ipynb`: Complete self-contained Jupyter notebook containing all 24 executed cells with full empirical outputs, loss curves, confusion matrices, Grad-CAM plots, and HIL curves.
 - `docs/Gayatama_Waste_Classification.pdf`: Formal academic research paper detailing the theoretical framework, dataset curation, benchmarking methodology, and industrial implementation analysis.
+- `DATASET.md`: Official dataset specification, taxonomy breakdown, and Kaggle download instructions.
 - `README.md`: Publication-grade project documentation, comprehensive architectural benchmark report, and reproduction guide.
 
 ## Reproducibility and Kaggle Execution
