@@ -213,8 +213,6 @@ gayatama-waste-clasification/
 ├── .gitignore
 ├── LICENSE
 ├── logo.png
-├── PROJECT_STATE.md
-├── project.md
 ├── README.md
 ├── docs/
 │   └── Gayatama_Waste_Classification.pdf
@@ -226,8 +224,7 @@ gayatama-waste-clasification/
 
 - `notebooks/gayatama_waste_classification_pipeline.ipynb`: Complete self-contained Jupyter notebook containing all 24 executed cells with full empirical outputs, loss curves, confusion matrices, Grad-CAM plots, and HIL curves.
 - `docs/Gayatama_Waste_Classification.pdf`: Formal academic research paper detailing the theoretical framework, dataset curation, benchmarking methodology, and industrial implementation analysis.
-- `project.md`: Project specification, formal problem statement, taxonomy mapping, and architectural decisions.
-- `PROJECT_STATE.md`: Traceable data science project ledger maintaining evidence records, validation statuses, and decision logs.
+- `README.md`: Publication-grade project documentation, comprehensive architectural benchmark report, and reproduction guide.
 
 ## Reproducibility and Kaggle Execution
 
