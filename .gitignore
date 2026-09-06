@@ -216,3 +216,23 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project specific: Datasets and Archives
+dataset_split/
+*.zip
+*.tar.gz
+*.tar
+
+# Project specific: Model weights and checkpoints
+checkpoints/
+*.pth
+*.pt
+*.bin
+*.onnx
+
+# Project specific: Local scratch and caches
+scratch/
+notebook-map.json
+.DS_Store
+Thumbs.db
+

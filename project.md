@@ -224,27 +224,35 @@ Status      : NEEDS_HUMAN_REVIEW
 
 ## 11. Rencana model dan eksperimen
 
-### 11.1 Pendekatan model
+### 11.1 Taksonomi Keluarga Arsitektur & Eksperimen Model
+Untuk mendapatkan perbandingan komprehensif, evaluasi dilakukan dengan memilih minimal satu representasi dari 6 keluarga arsitektur berikut (total 6–10 model kandidat):
 
-Eksperimen dapat mencakup:
+1. **Pure Scratch Baseline**: Custom CNN / ResNet-18 (from scratch, tanpa pretrain weights).
+2. **Classic Deep CNN**: ResNet-50 / DenseNet-121 (Pretrained ImageNet).
+3. **Lightweight Edge CNN**: MobileNetV3 / MobileNetV4 / EfficientNetV2-S.
+4. **Modern CNN**: ConvNeXt-Tiny.
+5. **Pure Vision Transformer**: Swin-T / ViT-Small.
+6. **Self-Supervised Backbone**: DINOv2-Small (via `timm` / PyTorch Hub).
 
-- satu CNN sederhana sebagai baseline;
-- satu atau beberapa model pretrained dengan transfer learning;
-- perbandingan performa, ukuran model, dan waktu inferensi.
+### 11.2 Protokol Eksperimen & Strategi Ensemble
+1. **Auditing Data & Quality Check Awal (Pre-Screening)**:
+   - Sebelum melatih seluruh variasi model, latih **1 model terbaik awal** (misal ConvNeXt-Tiny / ResNet-50) untuk melakukan *dataset error audit* (mendeteksi label noise, gambar korup, duplikasi yang lolos, atau *outlier visual* pada dataset).
+   - Setelah dataset terverifikasi bersih, lanjutkan ke tahap benchmarking penuh.
+2. **Benchmarking & Initial Training**:
+   - Seluruh model (6–10 kandidat) dilatih selama **15 epoch per model** untuk mencari baseline perbandingan performa terbaik secara adil (*fair comparison*).
+3. **Seleksi Model & Soft-Voting Ensemble**:
+   - Pilih **3 model terbaik yang berasal dari keluarga arsitektur berbeda** (*cross-family diversity*, misal: 1 Modern CNN + 1 Vision Transformer + 1 Self-Supervised/Edge CNN).
+   - Gabungkan probabilitas prediksi ketiganya menggunakan strategi **Soft Voting (Probability Averaging)** untuk meningkatkan generalisasi dan ketahanan prediksi pada skenario *Human-in-the-Loop*.
 
-Pemilihan arsitektur final dilakukan setelah dataset diketahui. Paper tidak perlu mengusulkan arsitektur baru apabila kontribusi utamanya adalah gagasan alur klasifikasi, rekomendasi, dan human-in-the-loop.
-
-### 11.2 Pembagian data
-
+### 11.3 Pembagian data
 Dataset dibagi secara terpisah menjadi:
+- **Training set (70% - 10.500 gambar)**: untuk melatih bobot model (didukung augmentasi data).
+- **Validation set (15% - 2.250 gambar)**: untuk pemilihan best checkpoint, hyperparameter tuning, dan kalibrasi confidence threshold $\tau$.
+- **Test set (15% - 2.250 gambar)**: untuk evaluasi akhir independen (Akurasi, F1-Score, Confusion Matrix, dan Selective Accuracy).
 
-- training set untuk melatih model;
-- validation set untuk memilih model dan confidence threshold;
-- test set untuk evaluasi akhir.
+Pemisahan telah di-cap seimbang sempurna 1.500 gambar per kelas (1:1) dan dialokasikan ke direktori `dataset_split/`.
 
-Pembagian harus bersifat stratified jika memungkinkan. Gambar yang berasal dari objek atau rangkaian pengambilan yang sama tidak boleh tersebar ke training dan test set karena dapat menyebabkan data leakage.
-
-### 11.3 Metrik klasifikasi
+### 11.4 Metrik klasifikasi
 
 - Accuracy
 - Precision per kelas dan macro average
